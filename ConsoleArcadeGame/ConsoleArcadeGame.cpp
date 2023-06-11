@@ -2,6 +2,7 @@
 #include <windows.h>
 #include <fstream>
 #include <conio.h>
+#include <string>
 using namespace std;
 //Deklaracja struktury sluzacej do stworzenia gracza
 struct Player
@@ -392,15 +393,15 @@ void specialcreate6()
     cout<<"+";
 }
 //Funkcja zwracajaca znak wystepujacy w miejscu kursora
-char getCursorChar()
+wchar_t getCursorChar()
 {
-    char c='\0';
-    CONSOLE_SCREEN_BUFFER_INFO con; //deklaracja struktury zawierajacej informacje o buforze ekranu konsoli
-    if(GetStdHandle(STD_OUTPUT_HANDLE)!=INVALID_HANDLE_VALUE&&GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE),&con))
+    wchar_t c = L'\0';
+    CONSOLE_SCREEN_BUFFER_INFO con;
+    if (GetStdHandle(STD_OUTPUT_HANDLE) != INVALID_HANDLE_VALUE && GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &con))
     {
-        DWORD read=0; //deklaracja zmiennej typu DWORD
-        if(!ReadConsoleOutputCharacter(GetStdHandle(STD_OUTPUT_HANDLE),&c,1,con.dwCursorPosition,&read)||read!=1)
-            c='\0';
+        DWORD read = 0;
+        if (!ReadConsoleOutputCharacter(GetStdHandle(STD_OUTPUT_HANDLE), &c, 1, con.dwCursorPosition, &read) || read != 1)
+            c = L'\0';
     }
     return c;
 }
@@ -412,7 +413,7 @@ char readChar (int x,int y)
     return ccccc;
 }
 //funkcja dla poziomu piatego sluzaca do odblokowania sciany
-bool specialunlock5()
+void specialunlock5()
 {
     if(readChar(unlockobject[1].x,unlockobject[1].y)=='@')
     {
@@ -976,7 +977,7 @@ void playermove()
 {
     c='0';
     if (_kbhit()==1)
-        c=getch();
+        c=_getch();
     //funkcja _kbhit sprawia, ze wszystkie obiekty poruszaja sie bez przerwy niezaleznie od tego czy zostal wcisniety jakis klawisz
 }
 //funkcja odpowiadajaca za resetowanie poziomu poprzez nacisniecie klawisza 'R'
@@ -1429,7 +1430,7 @@ void menu2()
             gotoxy(43,7+wybor2);
             cout<<"  >";
             gotoxy(0,0);
-            c=getch(); //pobieranie wcisnietego klawisza klawiatury
+            c=_getch(); //pobieranie wcisnietego klawisza klawiatury
             gotoxy(26,7+wybor2);
             cout<<"   ";
             gotoxy(43,7+wybor2);
@@ -1566,7 +1567,7 @@ void menu()
             gotoxy(43,11+wybor);
             cout<<"  >";
             gotoxy(0,0);
-            c=getch();
+            c=_getch();
             gotoxy(26,11+wybor);
             cout<<"   ";
             gotoxy(43,11+wybor);
