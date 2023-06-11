@@ -30,3 +30,22 @@
 *.exe
 *.out
 *.app
+
+# Code::Blocks project files
+*.cbp
+*.depend
+*.layout
+
+# Code::Blocks workspace files
+*.workspace
+
+# Code::Blocks build files
+bin/
+obj/
+
+# Code::Blocks user-specific files
+*.pers
+*.suo
+
+# Code::Blocks log files
+*.log
