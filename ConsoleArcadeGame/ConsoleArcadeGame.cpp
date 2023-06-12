@@ -109,90 +109,6 @@ void createenemypion(int n,int x,int y,bool wgore)
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),k4);
     cout<<"V";
 }
-
-//funkcja tworzaca przecinikow dla poziomu drugiego
-void loadenemy2()
-{
-    createenemypoz(0,30,14,true);
-    createenemypion(0,37,4,false);
-}
-//funkcja tworzaca przecinikow dla poziomu trzeciego
-void loadenemy3()
-{
-    createenemypoz(0,32,13,false);
-    createenemypoz(1,34,6,true);
-    createenemypoz(2,34,10,true);
-    createenemypion(0,32,16,false);
-    createenemypion(1,37,16,false);
-    createenemypion(2,38,5,false);
-}
-//funkcja tworzaca przecinikow dla poziomu czwartego
-void loadenemy4()
-{
-    createenemypion(0,32,16,false);
-    createenemypion(1,25,6,false);
-    createenemypion(2,35,6,false);
-    createenemypion(3,36,6,false);
-    createenemypion(4,37,6,false);
-    createenemypion(5,38,6,false);
-    createenemypion(6,39,6,false);
-    createenemypion(7,40,6,false);
-}
-//funkcja tworzaca przecinikow dla poziomu piatego
-void loadenemy5()
-{
-    createenemypoz(0,27,17,true);
-    createenemypion(0,33,5,false);
-    createenemypion(1,34,5,false);
-    createenemypion(2,35,5,false);
-}
-//funkcja tworzaca przecinikow dla poziomu szostego
-void loadenemy6()
-{
-    createenemypoz(0,30,17,true);
-    createenemypoz(1,53,17,false);
-    createenemypoz(2,53,16,false);
-    createenemypoz(3,53,15,false);
-    createenemypoz(4,45,9,true);
-    createenemypoz(5,53,7,false);
-    createenemypoz(6,32,7,true);
-    createenemypoz(7,32,11,true);
-    createenemypoz(8,18,5,true);
-    createenemypion(0,47,11,false);
-    createenemypion(1,28,8,false);
-    createenemypion(2,26,11,false);
-    createenemypion(3,24,16,true);
-    createenemypion(4,22,16,true);
-}
-//funkcja tworzaca przecinikow dla poziomu siodmego
-void loadenemy7()
-{
-    createenemypoz(0,36,14,false);
-    createenemypoz(1,32,12,false);
-    createenemypoz(2,18,20,true);
-    createenemypoz(3,15,16,true);
-    createenemypoz(4,15,14,true);
-    createenemypoz(5,16,10,true);
-    createenemypoz(6,18,6,false);
-    createenemypoz(7,9,4,true);
-    createenemypoz(8,22,3,true);
-    createenemypoz(9,51,14,false);
-    createenemypoz(10,50,17,false);
-    createenemypoz(11,56,19,false);
-    createenemypion(0,13,14,false);
-    createenemypion(1,10,9,false);
-    createenemypion(2,16,8,true);
-    createenemypion(3,20,2,false);
-    createenemypion(4,26,5,false);
-    createenemypion(5,28,7,true);
-    createenemypion(6,43,2,false);
-    createenemypion(7,45,5,false);
-    createenemypion(8,47,5,false);
-    createenemypion(9,49,5,false);
-    createenemypion(10,51,5,false);
-    createenemypion(11,53,12,false);
-    createenemypion(12,38,20,true);
-}
 //funkcja dla poziomu piatego tworzaca sciany posiadajace mozliwosc odblokowania oraz obiekt sluzacy do ich odblokowania
 void specialcreate5()
 {
@@ -556,6 +472,8 @@ void startlevel(string fileName)
     if(file.is_open())
     {
         int movableObjectID = 0; //TODO:Just do this in better way xD
+        int enemyPionID = 0;
+        int enemyPozID = 0;
         int y = 0;
         while(getline(file,getcontent))
         {
@@ -568,6 +486,22 @@ void startlevel(string fileName)
                 else if(getcontent[x] == '@')
                 {
                     createmovableobject(movableObjectID++, x, y);
+                }
+                else if(getcontent[x] == '^')
+                {
+                    createenemypion(enemyPionID++, x, y, true);
+                }
+                else if(getcontent[x] == 'V')
+                {
+                    createenemypion(enemyPionID++, x, y, false);
+                }
+                else if(getcontent[x] == '<')
+                {
+                    createenemypoz(enemyPozID++, x, y, false);
+                }
+                else if(getcontent[x] == '>')
+                {
+                    createenemypoz(enemyPozID++, x, y, true);
                 }
                 else
                 {
@@ -627,7 +561,6 @@ void resetlevel1()
     player.y=18;
     startlevel("level_1.txt");
     sterowanieinfo();
-    createobject1();
     createplayer();
 }
 //funkcja resetujaca poziom drugi
@@ -638,8 +571,6 @@ void resetlevel2()
     player.y=19;
     startlevel("level_2.txt");
     sterowanieinfo();
-    loadenemy2();
-    createobject2();
     createplayer();
 }
 //funkcja resetujaca poziom trzeci
@@ -650,8 +581,6 @@ void resetlevel3()
     player.y=20;
     startlevel("level_3.txt");
     sterowanieinfo();
-    loadenemy3();
-    createobject3();
     createplayer();
 }
 //funkcja resetujaca poziom czwarty
@@ -662,8 +591,6 @@ void resetlevel4()
     player.y=18;
     startlevel("level_4.txt");
     sterowanieinfo();
-    loadenemy4();
-    createobject4();
     createplayer();
 }
 //funkcja resetujaca poziom piaty
@@ -674,8 +601,6 @@ void resetlevel5()
     player.y=14;
     startlevel("level_5.txt");
     sterowanieinfo();
-    loadenemy5();
-    createobject5();
     specialcreate5();
     unlock=false;
     createplayer();
@@ -688,8 +613,6 @@ void resetlevel6()
     player.y=18;
     startlevel("level_6.txt");
     sterowanieinfo();
-    loadenemy6();
-    createobject6();
     specialcreate6();
     unlock1=false;
     unlock2=false;
@@ -706,8 +629,6 @@ void resetlevel7()
     player.y=11;
     startlevel("level_7.txt");
     sterowanieinfo();
-    loadenemy7();
-    createobject7();
     createplayer();
 }
 //funkcja wyswietlajaca animacje smierci gracza oraz resetujaca poziom
@@ -963,7 +884,6 @@ void startgame2()
     player.y=19;
     startlevel("level_2.txt");
     sterowanieinfo();
-    loadenemy2();
     createplayer();
 }
 
@@ -973,7 +893,6 @@ void startgame3()
     player.y=20;
     startlevel("level_3.txt");
     sterowanieinfo();
-    loadenemy3();
     createplayer();
 }
 
@@ -983,7 +902,6 @@ void startgame4()
     player.y=18;
     startlevel("level_4.txt");
     sterowanieinfo();
-    loadenemy4();
     createplayer();
 }
 
@@ -993,7 +911,6 @@ void startgame5()
     player.y=14;
     startlevel("level_5.txt");
     sterowanieinfo();
-    loadenemy5();
     specialcreate5();
     createplayer();
 }
@@ -1004,7 +921,6 @@ void startgame6()
     player.y=18;
     startlevel("level_6.txt");
     sterowanieinfo();
-    loadenemy6();
     specialcreate6();
     createplayer();
 }
@@ -1015,7 +931,6 @@ void startgame7()
     player.y=11;
     startlevel("level_7.txt");
     sterowanieinfo();
-    loadenemy7();
     createplayer();
 }
 
