@@ -109,92 +109,7 @@ void createenemypion(int n,int x,int y,bool wgore)
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),k4);
     cout<<"V";
 }
-//funkcja tworzaca obiekty dla poziomu pierwszego
-void createobject1()
-{
-    createendlevelobject(0,34,12);
-}
-//funkcja tworzaca obiekty dla poziomu drugiego
-void createobject2()
-{
-    createendlevelobject(0,29,5);
-}
-//funkcja tworzaca obiekty dla poziomu trzeciego
-void createobject3()
-{
-    createendlevelobject(0,40,12);
-}
-//funkcja tworzaca obiekty dla poziomu czwartego
-void createobject4()
-{
-    createendlevelobject(0,43,9);
-    createmovableobject(0,42,17);
-    createmovableobject(1,42,18);
-    createmovableobject(2,42,19);
-    createmovableobject(3,37,17);
-    createmovableobject(4,37,18);
-    createmovableobject(5,37,19);
-    createmovableobject(6,25,18);
-    createmovableobject(7,31,7);
-    createmovableobject(8,31,8);
-    createmovableobject(9,31,9);
-    createmovableobject(10,31,10);
-    createmovableobject(11,31,11);
-}
-//funkcja tworzaca obiekty dla poziomu piatego
-void createobject5()
-{
-    createendlevelobject(0,28,8);
-    createmovableobject(0,29,18);
-}
-//funkcja tworzaca obiekty dla poziomu szostego
-void createobject6()
-{
-    createendlevelobject(0,19,15);
-    createmovableobject(0,19,19);
-    createmovableobject(1,46,19);
-    createmovableobject(2,49,11);
-    createmovableobject(3,50,11);
-    createmovableobject(4,51,11);
-    createmovableobject(5,43,16);
-    createmovableobject(6,34,14);
-    createmovableobject(7,34,13);
-}
-//funkcja tworzaca obiekty dla poziomu siodmego
-void createobject7()
-{
-    createendlevelobject(0,18,12);
-    createmovableobject(0,40,9);
-    createmovableobject(1,38,9);
-    createmovableobject(2,36,9);
-    createmovableobject(3,34,9);
-    createmovableobject(4,32,9);
-    createmovableobject(5,41,8);
-    createmovableobject(6,39,8);
-    createmovableobject(7,37,8);
-    createmovableobject(8,35,8);
-    createmovableobject(9,33,8);
-    createmovableobject(10,31,8);
-    createmovableobject(11,40,7);
-    createmovableobject(12,38,7);
-    createmovableobject(13,36,7);
-    createmovableobject(14,34,7);
-    createmovableobject(15,32,7);
-    createmovableobject(16,30,7);
-    createmovableobject(17,41,6);
-    createmovableobject(18,39,6);
-    createmovableobject(19,37,6);
-    createmovableobject(20,35,6);
-    createmovableobject(21,33,6);
-    createmovableobject(22,31,6);
-    createmovableobject(23,40,5);
-    createmovableobject(24,38,5);
-    createmovableobject(25,36,5);
-    createmovableobject(26,34,5);
-    createmovableobject(27,32,5);
-    createmovableobject(28,30,5);
-    createmovableobject(29,14,18);
-}
+
 //funkcja tworzaca przecinikow dla poziomu drugiego
 void loadenemy2()
 {
@@ -639,12 +554,33 @@ void startlevel(string fileName)
     ifstream file(fileName.c_str());
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),k13);
     if(file.is_open())
-        while(file.eof()==false)
+    {
+        int movableObjectID = 0; //TODO:Just do this in better way xD
+        int y = 0;
+        while(getline(file,getcontent))
         {
-            getline(file,getcontent);
-            cout<<getcontent<<endl;
+            for(int x = 0; x < getcontent.size(); x++)
+            {
+                if(getcontent[x] == 'O')
+                {
+                    createendlevelobject(0, x, y);
+                }
+                else if(getcontent[x] == '@')
+                {
+                    createmovableobject(movableObjectID++, x, y);
+                }
+                else
+                {
+                    gotoxy(x,y);
+                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),k13);
+                    cout<<getcontent[x]<<endl;
+                }
+            }
+            y++;
         }
+    }
 }
+
 //funkcja wyswietlajaca animacje zanikania ekranu
 void animation1()
 {
@@ -1018,7 +954,6 @@ void startgame1()
     player.y=18;
     startlevel("level_1.txt");
     sterowanieinfo();
-    createobject1();
     createplayer();
 }
 
@@ -1029,7 +964,6 @@ void startgame2()
     startlevel("level_2.txt");
     sterowanieinfo();
     loadenemy2();
-    createobject2();
     createplayer();
 }
 
@@ -1040,7 +974,6 @@ void startgame3()
     startlevel("level_3.txt");
     sterowanieinfo();
     loadenemy3();
-    createobject3();
     createplayer();
 }
 
@@ -1051,7 +984,6 @@ void startgame4()
     startlevel("level_4.txt");
     sterowanieinfo();
     loadenemy4();
-    createobject4();
     createplayer();
 }
 
@@ -1062,7 +994,6 @@ void startgame5()
     startlevel("level_5.txt");
     sterowanieinfo();
     loadenemy5();
-    createobject5();
     specialcreate5();
     createplayer();
 }
@@ -1074,7 +1005,6 @@ void startgame6()
     startlevel("level_6.txt");
     sterowanieinfo();
     loadenemy6();
-    createobject6();
     specialcreate6();
     createplayer();
 }
@@ -1086,7 +1016,6 @@ void startgame7()
     startlevel("level_7.txt");
     sterowanieinfo();
     loadenemy7();
-    createobject7();
     createplayer();
 }
 
