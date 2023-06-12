@@ -359,8 +359,10 @@ void specialunlock65()
     }
 }
 //funkcja tworzaca gracza
-void createplayer()
+void createplayer(int x,int y)
 {
+    player.x=x;
+    player.y=y;
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),k10);
     gotoxy(player.x,player.y);
     cout<<'X';
@@ -449,7 +451,7 @@ void moving()
             }
         }
         if(c=='w'||c=='s'||c=='a'||c=='d'||c=='W'||c=='S'||c=='A'||c=='D')
-            createplayer();
+            createplayer(player.x, player.y);
     }
 }
 //funkcja generujaca opis sterowania
@@ -482,6 +484,10 @@ void startlevel(string fileName)
                 if(getcontent[x] == 'O')
                 {
                     createendlevelobject(0, x, y);
+                }
+                else if(getcontent[x] == 'X')
+                {
+                    createplayer(x, y);
                 }
                 else if(getcontent[x] == '@')
                 {
@@ -557,60 +563,43 @@ void animation3()
 void resetlevel1()
 {
     animation3();
-    player.x=34;
-    player.y=18;
     startlevel("level_1.txt");
     sterowanieinfo();
-    createplayer();
 }
 //funkcja resetujaca poziom drugi
 void resetlevel2()
 {
     animation3();
-    player.x=34;
-    player.y=19;
     startlevel("level_2.txt");
     sterowanieinfo();
-    createplayer();
 }
 //funkcja resetujaca poziom trzeci
 void resetlevel3()
 {
     animation3();
-    player.x=40;
-    player.y=20;
     startlevel("level_3.txt");
     sterowanieinfo();
-    createplayer();
 }
 //funkcja resetujaca poziom czwarty
 void resetlevel4()
 {
     animation3();
-    player.x=44;
-    player.y=18;
     startlevel("level_4.txt");
     sterowanieinfo();
-    createplayer();
 }
 //funkcja resetujaca poziom piaty
 void resetlevel5()
 {
     animation3();
-    player.x=29;
-    player.y=14;
     startlevel("level_5.txt");
     sterowanieinfo();
     specialcreate5();
     unlock=false;
-    createplayer();
 }
 //funkcja resetujaca poziom szosty
 void resetlevel6()
 {
     animation3();
-    player.x=35;
-    player.y=18;
     startlevel("level_6.txt");
     sterowanieinfo();
     specialcreate6();
@@ -619,17 +608,13 @@ void resetlevel6()
     unlock3=false;
     unlock4=false;
     unlock5=false;
-    createplayer();
 }
 //funkcja resetujaca poziom siodmy
 void resetlevel7()
 {
     animation3();
-    player.x=34;
-    player.y=11;
     startlevel("level_7.txt");
     sterowanieinfo();
-    createplayer();
 }
 //funkcja wyswietlajaca animacje smierci gracza oraz resetujaca poziom
 void playerdefeated()
@@ -871,67 +856,46 @@ void resetonkey()
 
 void startgame1()
 {
-    player.x=34;
-    player.y=18;
     startlevel("level_1.txt");
     sterowanieinfo();
-    createplayer();
 }
 
 void startgame2()
 {
-    player.x=34;
-    player.y=19;
     startlevel("level_2.txt");
     sterowanieinfo();
-    createplayer();
 }
 
 void startgame3()
 {
-    player.x=40;
-    player.y=20;
     startlevel("level_3.txt");
     sterowanieinfo();
-    createplayer();
 }
 
 void startgame4()
 {
-    player.x=44;
-    player.y=18;
     startlevel("level_4.txt");
     sterowanieinfo();
-    createplayer();
 }
 
 void startgame5()
 {
-    player.x=29;
-    player.y=14;
     startlevel("level_5.txt");
     sterowanieinfo();
     specialcreate5();
-    createplayer();
 }
 
 void startgame6()
 {
-    player.x=35;
-    player.y=18;
     startlevel("level_6.txt");
     sterowanieinfo();
     specialcreate6();
-    createplayer();
 }
 
 void startgame7()
 {
-    player.x=34;
-    player.y=11;
     startlevel("level_7.txt");
     sterowanieinfo();
-    createplayer();
 }
 
 //w funkcjach playlevel zawarta jest glowna petla na podstawie ktorej wlaczony jest dany poziom
