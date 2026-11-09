@@ -231,7 +231,7 @@ wchar_t getCursorChar()
     if (GetStdHandle(STD_OUTPUT_HANDLE) != INVALID_HANDLE_VALUE && GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &con))
     {
         DWORD read = 0;
-        if (!ReadConsoleOutputCharacter(GetStdHandle(STD_OUTPUT_HANDLE), &c, 1, con.dwCursorPosition, &read) || read != 1)
+        if (!ReadConsoleOutputCharacterW(GetStdHandle(STD_OUTPUT_HANDLE), &c, 1, con.dwCursorPosition, &read) || read != 1)
             c = L'\0';
     }
     return c;
