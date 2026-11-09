@@ -913,7 +913,7 @@ void playlevel1()
             gettoendoflevel();
             resetonkey();
             Sleep(50); //za pomoca funkcji Sleep okreslona jest predkosc przeciwnikow
-            if (c==char(27)) //po wcisniesciu klawisza escape nastepuje powrot do menu
+            if (c==char(27) || c == 'e' || c == 'E') //po wcisniesciu klawisza escape nastepuje powrot do menu
                 newgame=false;
         }
         animation1(); //animacja wyjscia z poziomu
@@ -932,7 +932,7 @@ void playlevel2()
             gettoendoflevel();
             resetonkey();
             Sleep(45);
-            if (c==char(27))
+            if (c==char(27) || c == 'e' || c == 'E')
                 newgame=false;
         }
         animation1();
@@ -951,7 +951,7 @@ void playlevel3()
             gettoendoflevel();
             resetonkey();
             Sleep(40);
-            if (c==char(27))
+            if (c==char(27) || c == 'e' || c == 'E')
                 newgame=false;
         }
         animation1();
@@ -970,7 +970,7 @@ void playlevel4()
             gettoendoflevel();
             resetonkey();
             Sleep(35);
-            if (c==char(27))
+            if (c==char(27) || c == 'e' || c == 'E')
                 newgame=false;
         }
         animation1();
@@ -992,7 +992,7 @@ void playlevel5()
             if (unlock==false) //warunek odblokowania przejscia
                 specialunlock5();
             Sleep(40);
-            if (c==char(27))
+            if (c==char(27) || c == 'e' || c == 'E')
                 newgame=false;
         }
         animation1();
@@ -1026,7 +1026,7 @@ void playlevel6()
                 specialunlock64();
             if (unlock5==false)
                 specialunlock65();
-            if (c==char(27))
+            if (c==char(27) || c == 'e' || c == 'E')
                 newgame=false;
         }
         animation1();
@@ -1045,7 +1045,7 @@ void playlevel7()
             gettoendoflevel();
             resetonkey();
             Sleep(25);
-            if (c==char(27))
+            if (c==char(27) || c == 'e' || c == 'E')
                 newgame=false;
         }
             animation1();
